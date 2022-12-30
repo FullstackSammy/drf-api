@@ -1,8 +1,9 @@
+from django.db import IntegrityError
 from rest_framework import serializers
 from .models import Like
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class LikeSerializer(serializers.ModelSerializer):
     """
     Serializer for the Comment model
     Adds three extra fields when returning a list of Comment instances
@@ -15,10 +16,10 @@ class CommentSerializer(serializers.ModelSerializer):
             'id', 'owner', 'post', 'created_at',
         ]
 
-
-class CommentDetailSerializer(CommentSerializer):
-    """
-    Serializer for the Comment model used in Detail view
-    Post is a read only field so that we dont have to set it on each update
-    """
-    post = serializers.ReadOnlyField(source='post.id')
+    def create(self, validated_data):
+        try:
+            return super().create(validated_data)
+        except IntegrityError:
+            raise serializers.ValidationError({
+                'detail': 'possible duplicate'
+            })
