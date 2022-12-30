@@ -3,7 +3,7 @@ from rest_framework import serializers
 from followers.models import Follower
 
 
-class LikeSerializer(serializers.ModelSerializer):
+class FollowerSerializer(serializers.ModelSerializer):
     """
     Serializer for the Like model
     The create method handles the unique constraint on 'owner' and 'post'
