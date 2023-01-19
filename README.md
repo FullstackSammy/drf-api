@@ -86,7 +86,7 @@
    - created 4 other profiles
       - Test if default image works
       - Test if password requirements work
-- Testing responsiveness with [AmIResponsive](https://ui.dev/amiresponsive?url=https://cozycorner-pp5.herokuapp.com/)
+- Testing responsiveness with [AmIResponsive](https://ui.dev/amiresponsive?url=https://lifeshare.herokuapp.com/)
 - When trying to test for PEP8 conformity, the webpage http://pep8online.com/ is no longer active.
     - However the code conforms to the way taught in lesson material from Code Institute
 #
