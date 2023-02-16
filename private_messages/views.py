@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import PrivateMessage
-from .serializer import PrivateMessageSerializer
+from .serializers import PrivateMessageSerializer
 
 
 class PrivateMessageList(generics.ListCreateAPIView):
