@@ -8,7 +8,9 @@ from django.contrib.auth.models import User
 
 
 class PrivateMessage(models.Model):
-    # This is the model for sending and receiving private messages
+    """
+    Private message model, related to User
+    """
     sender = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='sent_messages')
     recipient = models.ForeignKey(

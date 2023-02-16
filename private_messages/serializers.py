@@ -3,6 +3,9 @@ from .models import PrivateMessage
 
 
 class PrivateMessageSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the PrivateMessage model.
+    """
     sender = serializers.ReadOnlyField(source='sender.username')
 
     class Meta:
