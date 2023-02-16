@@ -1,15 +1,19 @@
-from rest_framework import viewsets, permissions
-from .models import Message
-from .serializers import MessageSerializer
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from .models import PrivateMessage
+from .serializer import PrivateMessageSerializer
 
-# Create your views here.
-class MessageViewSet(viewsets.ModelViewSet):
-    queryset = Message.objects.all()
-    serializers_class = MessageSerializer
-    permission_classes = [permissions.IsAuthenticated]
+
+class PrivateMessageList(generics.ListCreateAPIView):
+    queryset = PrivateMessage.objects.all()
+    serializer_class = PrivateMessageSerializer
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(sender=self.request.user)
-    
-    def get_queryset(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+
+
+class PrivateMessageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = PrivateMessage.objects.all()
+    serializer_class = PrivateMessageSerializer
+    permission_classes = [IsAuthenticated]
