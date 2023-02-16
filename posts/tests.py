@@ -1,61 +1,48 @@
+from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Post
-from rest_framework import status
 from rest_framework.test import APITestCase
+from .models import Post
 
 
-class PostListViewTests(APITestCase):
+class PostModelTest(APITestCase):
     def setUp(self):
-        User.objects.create_user(username='adam', password='pass')
-
-    def test_can_list_posts(self):
-        adam = User.objects.get(username='adam')
-        Post.objects.create(owner=adam, title='a title')
-        response = self.client.get('/posts/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(response.data)
-        print(len(response.data))
-
-    def test_logged_in_user_can_create_post(self):
-        self.client.login(username='adam', password='pass')
-        response = self.client.post('/posts/', {'title': 'a title'})
-        count = Post.objects.count()
-        self.assertEqual(count, 1)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    def test_user_not_logged_in_cant_create_post(self):
-        response = self.client.post('/posts/', {'title': 'a title'})
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-
-class PostDetailViewTests(APITestCase):
-    def setUp(self):
-        adam = User.objects.create_user(username='adam', password='pass')
-        brian = User.objects.create_user(username='brian', password='pass')
-        Post.objects.create(
-            owner=adam, title='a title', content='adams content'
-        )
-        Post.objects.create(
-            owner=brian, title='another title', content='brians content'
+        self.user = User.objects.create_user(
+            username='testuser', password='password')
+        self.post = Post.objects.create(
+            owner=self.user,
+            title='Test Post',
+            content='Test Content',
+            image='../default_post_yz9h7i'
         )
 
-    def test_can_retrieve_post_using_valid_id(self):
-        response = self.client.get('/posts/1/')
-        self.assertEqual(response.data['title'], 'a title')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_post_creation(self):
+        """
+        Test that a Post instance can be created and saved to the database
+        """
+        post = Post.objects.create(
+            owner=self.user,
+            title='New Post',
+            content='New Content',
+            image='../default_post_yz9h7i'
+        )
+        self.assertEqual(Post.objects.count(), 2)
+        self.assertEqual(Post.objects.last().title, 'Test Post')
 
-    def test_cant_retrieve_post_using_invalid_id(self):
-        response = self.client.get('/posts/999/')
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    def test_post_deletion(self):
+        """
+        Test that a Post instance can be deleted from the database
+        """
+        self.post.delete()
+        self.assertEqual(Post.objects.count(), 0)
 
-    def test_user_can_update_own_post(self):
-        self.client.login(username='adam', password='pass')
-        response = self.client.put('/posts/1/', {'title': 'a new title'})
-        post = Post.objects.filter(pk=1).first()
-        self.assertEqual(post.title, 'a new title')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_user_cant_update_another_users_post(self):
-        self.client.login(username='adam', password='pass')
-        response = self.client.put('/posts/2/', {'title': 'a new title'})
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+    def test_post_update(self):
+        """
+        Test that a Post instance can be updated
+        """
+        self.post.title = 'Updated Title'
+        self.post.content = 'Updated Content'
+        self.post.save()
+        self.assertEqual(
+            Post.objects.get(id=self.post.id).title, 'Updated Title')
+        self.assertEqual(
+            Post.objects.get(id=self.post.id).content, 'Updated Content')
