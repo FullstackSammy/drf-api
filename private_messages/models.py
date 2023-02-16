@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Message(models.Model):
+    # This is the model for sending and receiving private messages
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
     recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
     message = models.TextField()
