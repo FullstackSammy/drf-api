@@ -83,7 +83,7 @@
 ## Testing in development
 - After creation of a superuser.
    -Test to see that /admin worked and that admin view is running correctly
-   - created 4 other profiles
+   - created 9 other profiles
       - Test if default image works
       - Test if password requirements work
 - Testing responsiveness with [AmIResponsive](https://ui.dev/amiresponsive?url=https://lifeshare.herokuapp.com/)
@@ -91,7 +91,7 @@
     - However the code conforms to the way taught in lesson material from Code Institute
 #
 ## Profile
-- Testing done on profile:
+- Manual testing done on profile (no written tests done):
    - Possible for superuser to edit user profile in UI
       - Other non-superusers cannot change info on other users
       - Other non-superusers cannot access admin-panel
@@ -106,39 +106,22 @@
       - 404 does not exist
 #
 ## Post
-- Testing done on post:
-   - Unathorized user creating posts
-      - No access to tools
-   - Post is successfully saved and error message for image file works, both for byte-size and px-size.
-      - Successfull
-   - Not filling out title-field
-      -Error message
-   - View for other authorized users, no edit functionality on posts
-      - Successfull
-   - After refactoring:
-      - test entire CRUD functionality and view from non-owner view
-   - After adding like_id to posts, testing to see if create and delete like functions successfully.
-   - Test filtering functions.
-       - Order posts on number of likes, number of comments and when posts where liked. 
-       - Filtering on profiles a user is following, likes and posts
-   - Access non existent post
-      - 404 does not exist
+- Tests I wrote for the Posts app (see testfile in app):
+   - test_post_creation (Test that a Post instance can be created and saved to the database)
+   - test_post_deletion (Test that a Post instance can be deleted from the database)
+   - test_post_update (Test that a Post instance can be updated)
 #
 ## Comments
-- Testing done on comments:
-   - Creating, editing and deleting post as authorized user.
-      - Successful
-   -Accessing comment as other authenticated user 
-      - Read only.
-   - Accessing comment as unathenticated user 
-      - Read only.
-   - Test filtering comments of different user's posts
-      - Successfull
-   - Access non existent comment
-      - 404 does not exist
+- Tests I wrote for the Comments app (see testfile in app):
+   - test_str_method (Test that the string representation of a comment is its content)
+   - test_owner_field (Test that the owner field of a comment is set correctly)
+   - test_post_field (Test that the post field of a comment is set correctly)
+   - test_content_field (Test that the content field of a comment is set correctly)
+   - test_ordering (Test that comments are ordered by descending creation date)
 #
 ## Likes
-- Testing done on like:
+- Testing done on like (No written tests done):
+   - Manual tests:
    - Unauthenticated users
       - No access to liking posts
    - Authenticated users can like posts
@@ -150,7 +133,7 @@
       - 404 does not exist
 #
 ## Followers
-- Testing done on followers:
+- Manual testing done on followers (no written tests done):
    - Test following authenticated users as a authenticated user
    - No access to follow authenticated user while not logged in
    - Successful unfollowing a authentictated user as a logged in user
@@ -158,6 +141,14 @@
       - Possible improvement
    - Access non existent follow
       - 404 does not exist
+#
+## Private Messages
+- Tests I wrote for the Private Messages app (see testfile in app):
+   - test_str_method (Test that the string representation of a message is its content)
+   - test_sender_field (Test that the sender field of a message is set correctly)
+   - test_recipient_field (Test that the recipient field of a message is set correctly)
+   - test_content_field (Test that the content field of a message is set correctly)
+   - test_get_list (Test that a GET request to the private message list returns all messages)
 #
 ## Bugs in development
 - In initial deployment to Heroku, app did not launch. 
@@ -197,7 +188,7 @@
 - To Mikaela (fellow student), for readme.md template
 
 ### Media
-- Every media image that was used, came from free resource [Unsplash](https://unsplash.com/)
+- Every media image that was used, came from my personal library and the free resource [Unsplash](https://unsplash.com/)
 
 #
 * [Back to top](#)

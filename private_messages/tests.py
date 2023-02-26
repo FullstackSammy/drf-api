@@ -41,12 +41,17 @@ class PrivateMessageModelTest(APITestCase):
             self.user2 = User.objects.create_user(
                 username='user2', password='pass')
             PrivateMessage.objects.create(
-                sender=self.user1, recipient=self.user2, content='Test message 1')
+                sender=self.user1,
+                recipient=self.user2,
+                content='Test message 1')
             PrivateMessage.objects.create(
-                sender=self.user2, recipient=self.user1, content='Test message 2')
+                sender=self.user2,
+                recipient=self.user1,
+                content='Test message 2')
 
         def test_get_list(self):
-            # Test that a GET request to the private message list returns all messages
+            # Test that a GET request to the private message list returns
+            # all messages
             url = reverse('private_message_list')
             self.client.force_authenticate(user=self.user1)
             response = self.client.get(url)
