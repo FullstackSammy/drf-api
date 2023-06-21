@@ -2,9 +2,9 @@
 
 ![Am I responsive](/images/responsive.jpg)
 
-[Live site for frontend](https://lifeshare.herokuapp.com/)
+[Live site for frontend](https://lifeshare.onrender.com/)
 
-[Live site for backend](https://drf-api-sam.herokuapp.com/)
+[Live site for backend](https://drf-api-sam1.onrender.com/)
 
 ## Project Goals
 - Design an interactive Front-End web application using HTML, CSS and advanced JavaScript (React), based on component composition and separation of concerns.
