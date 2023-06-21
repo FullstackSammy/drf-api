@@ -50,6 +50,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = 'DEV' in os.environ
 ALLOWED_HOSTS = [
     'localhost', 'drf-api-sam.herokuapp.com', 'lifeshare.herokuapp.com']
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)    
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
